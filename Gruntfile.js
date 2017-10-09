@@ -557,17 +557,10 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: 'src/core/dist/tinymce',
-            src: ['**'],
-            dest: 'js/tinymce/'
-          },
-
-          {
-            expand: true,
-            flatten: true,
-            src: 'LICENSE.TXT',
-            rename: function (dest) {
-              return dest + 'license.txt';
-            },
+            src: [
+              'langs/',
+              'tinymce.min.js'
+            ],
             dest: 'js/tinymce/'
           }
         ]
@@ -578,10 +571,29 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: 'src/plugins',
-            src: ['*/dist/**'],
+            src: [
+              'autosave/dist/**',
+              'charmap/dist/**',
+              'code/dist/**',
+              'directionality/dist/**',
+              'fullscreen/dist/**',
+              'image/dist/**',
+              'importcss/dist/**',
+              'legacyoutput/dist/**',
+              'link/dist/**',
+              'lists/dist/**',
+              'paste/dist/**',
+              'searchreplace/dist/**',
+              'stripnbsp/dist/**',
+              'tabfocus/dist/**',
+              'table/dist/**',
+              'template/dist/**',
+              'visualblocks/dist/**',
+              'visualchars/dist/**'
+            ],
             dest: 'js/tinymce/plugins/',
             filter: function (filePath) {
-              return filePath.endsWith('dist') === false;
+              return filePath.endsWith('dist') === false && filePath.endsWith('/plugin.js') === false;
             },
             rename: function (dest, src) {
               var newSrc = src.replace(/\w+\/dist\//, '');
@@ -597,7 +609,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: 'src/themes',
             src: [
-              '*/dist/**'
+              'modern/dist/**'
             ],
             dest: 'js/tinymce/themes/',
             filter: function (filePath) {
@@ -640,7 +652,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-headers', 'Appends build headers to js files', function () {
     var header = '// ' + packageData.version + ' (' + packageData.date + ')\n';
-    grunt.file.write('js/tinymce/tinymce.js', header + grunt.file.read('js/tinymce/tinymce.js'));
     grunt.file.write('js/tinymce/tinymce.min.js', header + grunt.file.read('js/tinymce/tinymce.min.js'));
   });
 
@@ -649,7 +660,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('@ephox/bolt');
   grunt.loadNpmTasks('@ephox/bedrock');
 
-  grunt.registerTask("default", ["clean:scratch", "subgrunt", "copy", "build-headers", "validateVersion", "clean:release", "moxiezip", "nugetpack", "version"]);
+  grunt.registerTask("default", ["clean:scratch", "subgrunt", "copy", "build-headers", "validateVersion", "clean:release"]);
 
   grunt.registerTask("test", ["bedrock-auto:phantomjs"]);
 };
