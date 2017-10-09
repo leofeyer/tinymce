@@ -642,6 +642,19 @@ module.exports = function (grunt) {
             }
           }
         ]
+      },
+
+      "langs": {
+        files: [
+          {
+            expand: true,
+            cwd: 'src/langs',
+            src: [
+              '**',
+            ],
+            dest: 'js/tinymce/langs/'
+          }
+        ]
       }
     }
   });
