@@ -613,7 +613,7 @@ module.exports = function (grunt) {
             ],
             dest: 'js/tinymce/themes/',
             filter: function (filePath) {
-              return filePath.endsWith('dist') === false;
+              return filePath.endsWith('dist') === false && filePath.endsWith('/theme.js') === false;
             },
             rename: function (dest, src) {
               var newSrc = src.replace(/\w+\/dist\//, '');
