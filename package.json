@@ -30,7 +30,8 @@
     "@ephox/robin": "latest",
     "@ephox/sand": "latest",
     "@ephox/snooker": "latest",
-    "@ephox/sugar": "latest"
+    "@ephox/sugar": "latest",
+    "grunt-contrib-rename": "^0.2.0"
   },
   "devDependencies": {
     "@ephox/agar": "latest",
