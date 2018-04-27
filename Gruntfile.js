@@ -12,11 +12,11 @@ let plugins = [
   'fullscreen', 'hr', 'image', 'imagetools', 'importcss', 'insertdatetime', 'legacyoutput', 'link',
   'lists', 'media', 'nonbreaking', 'noneditable', 'pagebreak', 'paste', 'preview', 'print', 'save',
   'searchreplace', 'spellchecker', 'tabfocus', 'table', 'template', 'textcolor', 'textpattern', 'toc',
-  'visualblocks', 'visualchars', 'wordcount',
+  'visualblocks', 'visualchars', 'wordcount', 'stripnbsp'
 ];
 
 let themes = [
-  'modern', 'mobile', 'inlite'
+  'modern', /*'mobile', */'inlite'
 ];
 
 module.exports = function (grunt) {
@@ -312,6 +312,17 @@ module.exports = function (grunt) {
           { expand: true, cwd: 'src/plugins/compat3x/main', src: ['css/**'], dest: 'js/tinymce/plugins/compat3x' },
           { expand: true, cwd: 'src/plugins/compat3x/main/js', src: ['utils/**', 'plugin.js', 'tiny_mce_popup.js'], dest: 'js/tinymce/plugins/compat3x' },
           { src: 'src/plugins/codesample/main/css/prism.css', dest: 'js/tinymce/plugins/codesample/css/prism.css' }
+        ]
+      },
+      langs: {
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            cwd: 'src/langs',
+            src: '*.js',
+            dest: 'js/tinymce/langs'
+          }
         ]
       },
       'emoticons-plugin': {
@@ -699,7 +710,66 @@ module.exports = function (grunt) {
       dist: ['js'],
       lib: ['lib'],
       scratch: ['scratch'],
-      release: ['tmp']
+      release: ['tmp'],
+      custom: [
+        'js/tinymce/langs/readme.md',
+        'js/tinymce/plugins/**/plugin.js',
+        'js/tinymce/plugins/advlist',
+        'js/tinymce/plugins/anchor',
+        'js/tinymce/plugins/autolink',
+        'js/tinymce/plugins/autoresize',
+        'js/tinymce/plugins/bbcode',
+        'js/tinymce/plugins/codesample',
+        'js/tinymce/plugins/colorpicker',
+        'js/tinymce/plugins/compat3x',
+        'js/tinymce/plugins/contextmenu',
+        'js/tinymce/plugins/emoticons',
+        'js/tinymce/plugins/fullpage',
+        'js/tinymce/plugins/help',
+        'js/tinymce/plugins/hr',
+        'js/tinymce/plugins/imagetools',
+        'js/tinymce/plugins/insertdatetime',
+        'js/tinymce/plugins/media',
+        'js/tinymce/plugins/nonbreaking',
+        'js/tinymce/plugins/noneditable',
+        'js/tinymce/plugins/pagebreak',
+        'js/tinymce/plugins/preview',
+        'js/tinymce/plugins/print',
+        'js/tinymce/plugins/save',
+        'js/tinymce/plugins/spellchecker',
+        'js/tinymce/plugins/textcolor',
+        'js/tinymce/plugins/textpattern',
+        'js/tinymce/plugins/toc',
+        'js/tinymce/plugins/wordcount',
+        'js/tinymce/skins/lightgray/content.mobile.min.css',
+        'js/tinymce/skins/lightgray/skin.min.css.map',
+        'js/tinymce/skins/lightgray/skin.mobile.min.css',
+        'js/tinymce/skins/lightgray/skin.mobile.min.css.map',
+        'js/tinymce/themes/inlite',
+        'js/tinymce/themes/mobile',
+        'js/tinymce/themes/modern/theme.js',
+        'js/tinymce/jquery.tinymce.min.js',
+        'js/tinymce/license.txt',
+        'js/tinymce/tinymce.js'
+      ]
+    },
+    rename: {
+      main: {
+        files: [
+          {
+            src: 'js/tinymce/skins/lightgray',
+            dest: 'js/tinymce/skins/contao'
+          },
+          {
+            src: 'js',
+            dest: 'tmp'
+          },
+          {
+            src: 'tmp/tinymce',
+            dest: 'js'
+          }
+        ]
+      }
     },
 
     'bedrock-manual': {
@@ -825,10 +895,10 @@ module.exports = function (grunt) {
     'less',
     'copy',
     'build-headers',
-    'clean:release',
-    'moxiezip',
-    'nugetpack',
-    'version'
+    'clean:lib',
+    'clean:custom',
+    'rename',
+    'clean:release'
   ]);
 
   grunt.registerTask('dev', [

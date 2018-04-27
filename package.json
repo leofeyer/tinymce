@@ -31,7 +31,8 @@
     "@ephox/sand": "latest",
     "@ephox/snooker": "latest",
     "@ephox/sugar": "latest",
-    "tslib": "^1.9.3"
+    "tslib": "^1.9.3",
+    "grunt-contrib-rename": "^0.2.0"
   },
   "devDependencies": {
     "@ephox/agar": "latest",
