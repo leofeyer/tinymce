@@ -23,11 +23,12 @@
     "@ephox/alloy": "latest",
     "@ephox/boulder": "latest",
     "@ephox/darwin": "latest",
+    "@ephox/imagetools": "latest",
     "@ephox/katamari": "latest",
     "@ephox/sand": "latest",
     "@ephox/snooker": "latest",
     "@ephox/sugar": "latest",
-    "@ephox/imagetools": "latest"
+    "grunt-contrib-rename": "^0.2.0"
   },
   "devDependencies": {
     "@ephox/agar": "latest",
